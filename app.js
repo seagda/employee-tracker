@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 // start program after connection
 connection.connect(function(err) {
     if (err) throw err;
-    console.log(`connected to ${connection.database} as thread ${connection.threadId}\n\n`)
+    console.log("\n\nConnected to employees_db as "+ connection.threadId + "\n")
     makeHeader();
     mainMenu();
   });
@@ -98,10 +98,74 @@ const mainOrQuit = () => {
 // Manage Departments
 const manageDepts = () => {
     console.log("-".repeat(30)+"\n Now managing Departments:\n"+"-".repeat(30));
-    let query = "SELECT "
+    connection.query("SELECT * FROM ??","department", function(err, data) {
+        if (err) throw err;
+        console.table(data);
+        console.log("_".repeat(30));
+        inquirer.prompt({
+            name: "actionDept",
+            type: "list",
+            message: "What next?",
+            choices: ["Add Department", 
+                "Edit Department",
+                "Delete Department",
+                "Return to Main",
+                "Quit"]
+            })
+            .then(function(answer) {
+                switch (answer.actionDept) {
 
-    mainOrQuit();
+                case "Add Department":
+                    addDept();
+                    break;
+
+                case "Edit Department":
+                    editDept();
+                    break;
+
+                case "Delete Department":
+                    deleteDept();
+                    break;
+
+                case "Return to Main":
+                    console.log("=".repeat(30));
+                    mainMenu();
+                    break;
+                    
+                case "Quit App":
+                    quitApp();
+                    break;
+                }
+            });
+        
+    })  
 };
+
+// Add a Dept
+const addDept = () => {
+    inquirer.prompt([
+        {
+         name: "newDept",
+         type: "input",
+         message: "Name of new department:"
+        }
+    ])
+    .then(function(answer) {
+    connection.query("INSERT INTO department SET ?",
+    {name: answer.newDept},
+    function(err) {
+        if (err) throw err;
+        console.log(`${answer.newDept} Department added.`);
+        manageDepts();
+     });
+  })
+};
+
+// Edit a Dept
+const editDept = () => {};
+
+// Delete a Dept
+const deleteDept = () => {};
 
 // Manage Roles
 const manageRoles = () => {

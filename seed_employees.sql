@@ -1,7 +1,7 @@
 USE employees_db;
 
 INSERT INTO department (name) VALUES
-    ("accounting"),("HR"),("engineering"),("sales"),("executive");
+    ("Accounting"),("HR"),("Engineering"),("Sales"),("Executive");
 
 INSERT INTO role (title,salary,department_id) VALUES
     ("Accounts Receivable",60000,1),
