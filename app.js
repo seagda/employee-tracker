@@ -72,29 +72,6 @@ const quitApp = () => {
     console.log("-".repeat(50)+"\n Thanks for using Employee Manager. Goodbye.\n"+"-".repeat(50)+"\n");
 };
 
-// Return to main or quit
-const mainOrQuit = () => {
-    inquirer
-    .prompt({
-      name: "returnChoice",
-      type: "list",
-      message: "What next?",
-      choices: ["Return to Main","Quit App"]
-    })
-    .then(function(answer) {
-        switch (answer.returnChoice) {
-        case "Return to Main":
-            console.log("=".repeat(30));
-            mainMenu();
-            break;
-            
-        case "Quit App":
-            quitApp();
-            break;
-        }
-    });
-};
-
 // Manage Departments
 const manageDepts = () => {
     console.log("-".repeat(30)+"\n Now managing Departments:\n"+"-".repeat(30));
@@ -162,7 +139,42 @@ const addDept = () => {
 };
 
 // Edit a Dept
-const editDept = () => {};
+const editDept = () => {
+    connection.query("SELECT * FROM ??","department", function(err, deptData) {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+             name: "deptChoice",
+             type: "rawlist",
+             choices: function() {
+                 let deptArray = [];
+                 for (let i = 0; i < deptData.length; i++) {
+                     deptArray.push(deptData[i].name);
+                 }
+                 return deptArray;
+             },
+             message: "What department would you like to edit?"
+            },
+            {
+                name: "nameEdit",
+                type: "input",
+                message: "Enter new name:"
+            }
+        ]).then(function(answer) {
+            let chosenDept;
+            for (let i=0; i < deptData.length; i++) {
+                if (deptData[i].name === answer.deptChoice){
+                    chosenDept = deptData[i];
+                }
+            }
+            connection.query("UPDATE ?? SET ? WHERE ?",["department",{name:answer.nameEdit},{id:chosenDept.id}], function(err) {
+                if (err) throw err;
+                console.log("Department updated.");
+                manageDepts();
+            })
+        });
+    });
+};
 
 // Delete a Dept
 const deleteDept = () => {};
@@ -170,11 +182,9 @@ const deleteDept = () => {};
 // Manage Roles
 const manageRoles = () => {
     console.log("-".repeat(30)+"\n Now managing Roles:\n"+"-".repeat(30));
-    mainOrQuit();
 };
 
 // Manage Employees
 const manageEmp = () => {
     console.log("-".repeat(30)+"\n Now managing Employees:\n"+"-".repeat(30));
-    mainOrQuit();
 };
