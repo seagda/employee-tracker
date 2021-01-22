@@ -41,7 +41,7 @@ This CLI app requires the following NPM packages:
 
 ### Click the image to watch the video:
 
-<a href="https://youtu.be/JX8vAIFfYdk" target="_blank"><img src="img/pic-EmpTr-video.png" alt="Video Demonstration" width="600"/></a>
+<a href="https://youtu.be/JX8vAIFfYdk" target="_blank"><img src="./img/pic-EmpTr-video.png" alt="Video Demonstration" width="600"/></a>
 
 ### DB Schema
  
