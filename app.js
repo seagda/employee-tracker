@@ -33,7 +33,7 @@ const mainMenu = () => {
     inquirer.prompt({
         name: "whatToDo",
         type: "list",
-        message: "What would you like to do?",
+        message: "MAIN MENU:",
         choices: [
             "Manage Departments", 
             "Manage Roles", 
@@ -66,24 +66,51 @@ const mainMenu = () => {
     })    
 };
 
-// quit function
+// Quit Application
 const quitApp = () => {
     connection.end();
     console.log("-".repeat(50)+"\n Thanks for using Employee Manager. Goodbye.\n"+"-".repeat(50)+"\n");
 };
 
+// Return to main or quit
+const mainOrQuit = () => {
+    inquirer
+    .prompt({
+      name: "returnChoice",
+      type: "list",
+      message: "What next?",
+      choices: ["Return to Main","Quit App"]
+    })
+    .then(function(answer) {
+        switch (answer.returnChoice) {
+        case "Return to Main":
+            console.log("=".repeat(30));
+            mainMenu();
+            break;
+            
+        case "Quit App":
+            quitApp();
+            break;
+        }
+    });
+};
+
 // Manage Departments
 const manageDepts = () => {
     console.log("-".repeat(30)+"\n Now managing Departments:\n"+"-".repeat(30));
+    let query = "SELECT "
 
+    mainOrQuit();
 };
 
 // Manage Roles
 const manageRoles = () => {
     console.log("-".repeat(30)+"\n Now managing Roles:\n"+"-".repeat(30));
+    mainOrQuit();
 };
 
 // Manage Employees
 const manageEmp = () => {
     console.log("-".repeat(30)+"\n Now managing Employees:\n"+"-".repeat(30));
+    mainOrQuit();
 };
