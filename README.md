@@ -1,7 +1,6 @@
 # Employee Tracker Using MySQL/Node.js
 
 ## Description
--------------
 
 This CLI application is built using Node.js to manipulate employee data within a MySQL database pre-populated with tables and seed data. (SQL schema and seed data are available in the accompanying repository.)
  
