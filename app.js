@@ -233,111 +233,117 @@ const manageRoles = () => {
 
 // Add a Role
 const addRole = () => {
-    inquirer.prompt([
-      {name: "newRole", type: "input", message: "Name of new role:"},
-      {name: "newSalary", type: "input", message: "Salary for this role:"},
-      {
-        name: "newDeptId", 
-        type: "rawlist", 
-        choices: function() {
-            connection.query("SELECT * FROM ??","department", function(err, deptData) {
-                if (err) throw err;
-                let deptArray = [];
-                for (let i = 0; i < deptData.length; i++) {
-                deptArray.push(deptData[i].name);
-                }
-                return deptArray;
-            });
-        },
-        message: "Choose a Department:"
-    }
-    ])
-    .then(function(answer) {
-    connection.query("INSERT INTO role SET ?,?,?", [
-        {name: answer.newRole},
-        {salary: answer.newSalary},
-        {department_id: answer.newDeptId}
-    ], function(err) {
-        if (err) throw err;
-        console.log(`${answer.newRole} added.`);
-        manageRoles();
-     });
-  })
+    console.log("==============\n  Coming soon...\n==============\n");
+    mainMenu();
+//     inquirer.prompt([
+//       {name: "newRole", type: "input", message: "Name of new role:"},
+//       {name: "newSalary", type: "input", message: "Salary for this role:"},
+//       {
+//         name: "newDeptId", 
+//         type: "rawlist", 
+//         choices: function() {
+//             connection.query("SELECT * FROM ??","department", function(err, deptData) {
+//                 if (err) throw err;
+//                 let deptArray = [];
+//                 for (let i = 0; i < deptData.length; i++) {
+//                 deptArray.push(deptData[i].name);
+//                 }
+//                 return deptArray;
+//             });
+//         },
+//         message: "Choose a Department:"
+//     }
+//     ])
+//     .then(function(answer) {
+//     connection.query("INSERT INTO role SET ?,?,?", [
+//         {name: answer.newRole},
+//         {salary: answer.newSalary},
+//         {department_id: answer.newDeptId}
+//     ], function(err) {
+//         if (err) throw err;
+//         console.log(`${answer.newRole} added.`);
+//         manageRoles();
+//      });
+//   })
 };
 
 // Edit a Role
 const editRole = () => {
-    connection.query("SELECT * FROM ??","role", function(err, roleData) {
-        if (err) throw err;
-        inquirer.prompt([
-            {name: "roleChoice",
-             type: "rawlist",
-             choices: function() {
-                 let roleArray = [];
-                 for (let i = 0; i < roleData.length; i++) {
-                     roleArray.push(roleData[i].name);
-                 }
-                 return roleArray;},
-             message: "What Role would you like to edit?"},
-            {name: "nameEdit", type: "input", message: "Enter new name:"}
-        ]).then(function(answer) {
-            let chosenRole;
-            for (let i=0; i < roleData.length; i++) {
-                if (roleData[i].name === answer.roleChoice){
-                    chosenRole = roleData[i];
-                }
-            }
-            connection.query("UPDATE ?? SET ? WHERE ?",["role",{name:answer.nameEdit},{id:chosenRole.id}], function(err) {
-                if (err) throw err;
-                console.log("Role updated.");
-                manageRoles();
-            })
-        });
-    });
+    console.log("==============\n  Coming soon...\n==============\n");
+    mainMenu();
+//     connection.query("SELECT * FROM ??","role", function(err, roleData) {
+//         if (err) throw err;
+//         inquirer.prompt([
+//             {name: "roleChoice",
+//              type: "rawlist",
+//              choices: function() {
+//                  let roleArray = [];
+//                  for (let i = 0; i < roleData.length; i++) {
+//                      roleArray.push(roleData[i].name);
+//                  }
+//                  return roleArray;},
+//              message: "What Role would you like to edit?"},
+//             {name: "nameEdit", type: "input", message: "Enter new name:"}
+//         ]).then(function(answer) {
+//             let chosenRole;
+//             for (let i=0; i < roleData.length; i++) {
+//                 if (roleData[i].name === answer.roleChoice){
+//                     chosenRole = roleData[i];
+//                 }
+//             }
+//             connection.query("UPDATE ?? SET ? WHERE ?",["role",{name:answer.nameEdit},{id:chosenRole.id}], function(err) {
+//                 if (err) throw err;
+//                 console.log("Role updated.");
+//                 manageRoles();
+//             })
+//         });
+//     });
 };
 
 // Delete a Role
 const deleteRole = () => {
-    connection.query("SELECT * FROM ??", "role", function(err, roleData) {
-        if (err) throw err;
-        inquirer.prompt([
-            {name: "roleChoice",
-             type: "rawlist",
-             choices: function() {
-                 let roleArray = [];
-                 for (let i = 0; i < roleData.length; i++) {
-                     roleArray.push(roleData[i].name);
-                 }
-                 return roleArray;},
-             message: "Which Role would you like to delete?"}
-        ]).then(function(answer) {
-            let chosenRole;
-            for (let i=0; i < roleData.length; i++) {
-                if (roleData[i].name === answer.roleChoice){
-                    chosenRole = roleData[i];
-                }
-            }
-            connection.query("SELECT * FROM ?? WHERE role_id = ?", ["employee", chosenRole.id], function(err, data) {
-                if (err){
-                 throw err;
-                } else if (!data.length){
-                  console.log("No associated employees, OK to delete...");
-                  (function deleteRole() {
-                    connection.query("DELETE FROM ?? WHERE ?", ["role", {id: chosenRole.id}], 
-                    function(err, res){
-                        if (err) throw err;
-                        console.log("\n\n** Role successfully deleted.**\nHit 'Enter' to Manage more Roles");
-                    })
+    console.log("==============\n  Coming soon...\n==============\n");
+    mainMenu();
+    // connection.query("SELECT * FROM ??", "role", function(err, roleData) {
+    //     if (err) throw err;
+    //     inquirer.prompt([
+    //         {name: "roleChoice",
+    //          type: "rawlist",
+    //          choices: function() {
+    //              let roleArray = [];
+    //              for (let i = 0; i < roleData.length; i++) {
+    //                  roleArray.push(roleData[i].name);
+    //              }
+    //              return roleArray;},
+    //          message: "Which Role would you like to delete?"}
+    //     ]).then(function(answer) {
+    //         let chosenRole;
+    //         for (let i=0; i < roleData.length; i++) {
+    //             if (roleData[i].name === answer.roleChoice){
+    //                 chosenRole = roleData[i];
+    //             }
+    //         }
+    //         connection.query("SELECT * FROM ?? WHERE role_id = ?", ["employee", chosenRole.id], function(err, data) {
+    //             if (err){
+    //              throw err;
+    //             } else if (!data.length){
+    //               console.log("No associated employees, OK to delete...");
+    //               (function deleteRole() {
+    //                 connection.query("DELETE FROM ?? WHERE ?", ["role", {id: chosenRole.id}], 
+    //                 function(err, res){
+    //                     if (err) throw err;
+    //                     console.log("\n\n** Role successfully deleted.**\nHit 'Enter' to Manage more Roles");
+    //                 })
                     
-                  })();
-                } else {
-                console.log("The following Roles are associated with this Department. Cannot delete.")
-                console.table(data);
-                }
-                mainMenu();
-            })
-        });
-    });
+    //               })();
+    //             } else {
+    //             console.log("The following Roles are associated with this Department. Cannot delete.")
+    //             console.table(data);
+    //             }
+    //             mainMenu();
+    //         })
+    //     });
+    // });
 };
 
 // ============ END MANAGE ROLES =================
@@ -345,7 +351,7 @@ const deleteRole = () => {
 // Manage Employee Functions Start Here ==============
 const manageEmp = () => {
     console.log("-".repeat(30)+"\n Now managing Employees:\n"+"-".repeat(30));
-    connection.query("SELECT e.first_name, e.last_name, r.title, d.name AS department FROM employee e LEFT JOIN role r ON e.role_id = r.id LEFT JOIN department d ON r.department_id = d.id",
+    connection.query(`SELECT e.id, CONCAT(e.first_name, " ", e.last_name) AS Employee, r.title AS Title, d.name AS Department, CONCAT(m.first_name, " ", m.last_name) AS Reports_To FROM employee e INNER JOIN employee m ON m.id = e.manager_id LEFT JOIN role r ON e.role_id = r.id LEFT JOIN department d ON r.department_id = d.id`,
      function(err, data) {
         if (err) throw err;
         console.table(data);
@@ -384,13 +390,16 @@ const manageEmp = () => {
 };    
 
 const addEmp = () => {
-
+    console.log("Coming soon...\n==============\n");
+    mainMenu();
 };
 
 const updateEmp = () => {
-
+    console.log("Coming soon...\n==============\n");
+    mainMenu();
 };
 
 const termEmp = () => {
-
+    console.log("Coming soon...\n==============\n");
+    mainMenu();
 };
